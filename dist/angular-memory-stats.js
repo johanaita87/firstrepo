@@ -1,6 +1,6 @@
 /**
  * angular-memory-stats - Angular Memory Stats displays your app memory activity
- * @version v1.0.0-rc3
+ * @version v1.0.0-rc4
  * @author shprink <contact@julienrenaux.fr>
  * @link https://github.com/livingobjects/angular-memory-stats
  * @license MIT
@@ -91,6 +91,12 @@
 	        return;
 	      }
 	      stats = new MemoryStats();
+	      $element.css({
+	        'zIndex': 999999,
+	        'position': 'fixed',
+	        'right': '5px',
+	        'bottom': '5px'
+	      });
 	      $element.append(stats.domElement);
 	      update = function() {
 	        stats.update();
