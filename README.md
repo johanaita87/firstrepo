@@ -12,6 +12,10 @@ npm i angular-memory-stats --save
 
 ### Start Chrome with `--enable-precise-memory-info`
 
+```
+google-chrome --enable-precise-memory-info --enable-memory-info
+```
+
 Otherwise the results from performance.memory are bucketed and less useful.
 
 ### Add the module to your Angular's dependencies
