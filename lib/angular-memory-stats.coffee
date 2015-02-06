@@ -26,8 +26,8 @@ module.directive 'angularMemoryStats' , ->
         $element.css
             'zIndex': 999999
             'position': 'fixed'
-            'right': 5
-            'bottom': 5
+            'right': '5px'
+            'bottom': '5px'
         $element.append stats.domElement
         update = ->
             stats.update()
