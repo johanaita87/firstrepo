@@ -19,7 +19,7 @@ npm i angular-memory-stats --save
 google-chrome --enable-precise-memory-info --enable-memory-info
  
 #MacOS
-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --enable-precise-memory-info --enable-memory-info
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --enable-precise-memory-info --enable-memory-info
 ```
 
 Otherwise the results from performance.memory are bucketed and less useful.
