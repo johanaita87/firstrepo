@@ -1,5 +1,7 @@
 # angular-memory-stats
 
+[![Join the chat at https://gitter.im/livingobjects/angular-memory-stats](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/livingobjects/angular-memory-stats?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This plugin is based on Paul Irish's [memory-stats](https://github.com/paulirish/memory-stats.js).
 
 ![image](http://i.imgur.com/eUCFcAH.gif)
