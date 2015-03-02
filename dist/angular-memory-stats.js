@@ -60,23 +60,103 @@
 	module.exports = module = angular.module('angular-memory-stats', []);
 
 	module.provider('angularMemoryStats', function() {
-	  var $get, enable, isEnabled;
-	  isEnabled = true;
-	  enable = function(enable) {
-	    if (enable == null) {
-	      enable = true;
-	    }
-	    return isEnabled = enable;
+	  var $get, cornersAvailable, defaultOptions, enable, setCorner, setCss, setPosition, setZIndex;
+	  cornersAvailable = ["topLeft", "topRight", "bottomLeft", "bottomRight"];
+	  defaultOptions = {
+	    isEnabled: true,
+	    zIndex: 9999,
+	    position: 'fixed',
+	    corner: 'bottomRight',
+	    css: null
 	  };
-	  $get = function() {
-	    return {
-	      isEnabled: function() {
-	        return isEnabled;
+	  this.isEnabled = defaultOptions.isEnabled;
+	  this.zIndex = defaultOptions.zIndex;
+	  this.position = defaultOptions.position;
+	  this.corner = defaultOptions.corner;
+	  this.css = defaultOptions.css;
+	  enable = (function(_this) {
+	    return function(enable) {
+	      if (enable == null) {
+	        enable = true;
+	      }
+	      return _this.isEnabled = enable;
+	    };
+	  })(this);
+	  setZIndex = (function(_this) {
+	    return function(zIndex) {
+	      if (zIndex) {
+	        return _this.zIndex = zIndex;
 	      }
 	    };
-	  };
+	  })(this);
+	  setPosition = (function(_this) {
+	    return function(position) {
+	      if (position) {
+	        return _this.position = position;
+	      }
+	    };
+	  })(this);
+	  setCorner = (function(_this) {
+	    return function(corner) {
+	      if (corner && cornersAvailable.indexOf(corner) > -1) {
+	        return _this.corner = corner;
+	      }
+	    };
+	  })(this);
+	  setCss = (function(_this) {
+	    return function(css) {
+	      if (css) {
+	        return _this.css = css;
+	      }
+	    };
+	  })(this);
+	  $get = (function(_this) {
+	    return function() {
+	      return {
+	        isEnabled: function() {
+	          return _this.isEnabled;
+	        },
+	        getCss: function() {
+	          var corner, css;
+	          if (_this.css) {
+	            return _this.css;
+	          }
+	          css = {
+	            position: _this.position,
+	            zIndex: _this.zIndex
+	          };
+	          corner = _this.corner;
+	          if (["topLeft", "topRight", "bottomLeft", "bottomRight"].indexOf(corner) === -1) {
+	            corner = defaultOptions.corner;
+	          }
+	          switch (corner) {
+	            case "topLeft":
+	              css.top = '5px';
+	              css.left = '5px';
+	              break;
+	            case "topRight":
+	              css.top = '5px';
+	              css.right = '5px';
+	              break;
+	            case "bottomLeft":
+	              css.bottom = '5px';
+	              css.left = '5px';
+	              break;
+	            case "bottomRight":
+	              css.bottom = '5px';
+	              css.right = '5px';
+	          }
+	          return css;
+	        }
+	      };
+	    };
+	  })(this);
 	  return {
 	    enable: enable,
+	    setZIndex: setZIndex,
+	    setPosition: setPosition,
+	    setCorner: setCorner,
+	    setCss: setCss,
 	    $get: $get
 	  };
 	});
@@ -91,12 +171,7 @@
 	        return;
 	      }
 	      stats = new MemoryStats();
-	      $element.css({
-	        'zIndex': 999999,
-	        'position': 'fixed',
-	        'right': '5px',
-	        'bottom': '5px'
-	      });
+	      $element.css(angularMemoryStats.getCss());
 	      $element.append(stats.domElement);
 	      update = function() {
 	        stats.update();
