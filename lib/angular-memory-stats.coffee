@@ -7,25 +7,15 @@ module.provider 'angularMemoryStats', ->
     cornersAvailable = ["topLeft", "topRight", "bottomLeft", "bottomRight"]
     defaultOptions =
         isEnabled : true
-        zIndex : 9999
-        position : 'fixed'
         corner : 'bottomRight'
-        css : null
+        css : {}
 
     @isEnabled = defaultOptions.isEnabled
-    @zIndex = defaultOptions.zIndex
-    @position = defaultOptions.position
     @corner = defaultOptions.corner
     @css = defaultOptions.css
 
     enable = (enable = true) =>
         @isEnabled = enable
-
-    setZIndex = (zIndex) =>
-        @zIndex = zIndex if zIndex
-
-    setPosition = (position) =>
-        @position = position if position
 
     setCorner = (corner) =>
         @corner = corner if corner and cornersAvailable.indexOf(corner) > - 1
@@ -38,12 +28,9 @@ module.provider 'angularMemoryStats', ->
             @isEnabled
 
         getCss: =>
-            if @css
-                return @css
-
             css =
-                position: @position
-                zIndex: @zIndex
+                position: 'fixed'
+                zIndex: 1
             corner = @corner
             if ["topLeft", "topRight", "bottomLeft", "bottomRight"].indexOf(corner) is - 1
                 corner = defaultOptions.corner
@@ -60,11 +47,9 @@ module.provider 'angularMemoryStats', ->
                 when "bottomRight"
                     css.bottom = '5px'
                     css.right = '5px'
-            return css
+            return angular.extend css, @css
 
     enable: enable
-    setZIndex: setZIndex
-    setPosition: setPosition
     setCorner: setCorner
     setCss: setCss
     $get: $get

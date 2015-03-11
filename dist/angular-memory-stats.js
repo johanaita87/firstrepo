@@ -60,18 +60,14 @@
 	module.exports = module = angular.module('angular-memory-stats', []);
 
 	module.provider('angularMemoryStats', function() {
-	  var $get, cornersAvailable, defaultOptions, enable, setCorner, setCss, setPosition, setZIndex;
+	  var $get, cornersAvailable, defaultOptions, enable, setCorner, setCss;
 	  cornersAvailable = ["topLeft", "topRight", "bottomLeft", "bottomRight"];
 	  defaultOptions = {
 	    isEnabled: true,
-	    zIndex: 9999,
-	    position: 'fixed',
 	    corner: 'bottomRight',
-	    css: null
+	    css: {}
 	  };
 	  this.isEnabled = defaultOptions.isEnabled;
-	  this.zIndex = defaultOptions.zIndex;
-	  this.position = defaultOptions.position;
 	  this.corner = defaultOptions.corner;
 	  this.css = defaultOptions.css;
 	  enable = (function(_this) {
@@ -80,20 +76,6 @@
 	        enable = true;
 	      }
 	      return _this.isEnabled = enable;
-	    };
-	  })(this);
-	  setZIndex = (function(_this) {
-	    return function(zIndex) {
-	      if (zIndex) {
-	        return _this.zIndex = zIndex;
-	      }
-	    };
-	  })(this);
-	  setPosition = (function(_this) {
-	    return function(position) {
-	      if (position) {
-	        return _this.position = position;
-	      }
 	    };
 	  })(this);
 	  setCorner = (function(_this) {
@@ -118,12 +100,9 @@
 	        },
 	        getCss: function() {
 	          var corner, css;
-	          if (_this.css) {
-	            return _this.css;
-	          }
 	          css = {
-	            position: _this.position,
-	            zIndex: _this.zIndex
+	            position: 'fixed',
+	            zIndex: 1
 	          };
 	          corner = _this.corner;
 	          if (["topLeft", "topRight", "bottomLeft", "bottomRight"].indexOf(corner) === -1) {
@@ -146,15 +125,13 @@
 	              css.bottom = '5px';
 	              css.right = '5px';
 	          }
-	          return css;
+	          return angular.extend(css, _this.css);
 	        }
 	      };
 	    };
 	  })(this);
 	  return {
 	    enable: enable,
-	    setZIndex: setZIndex,
-	    setPosition: setPosition,
 	    setCorner: setCorner,
 	    setCss: setCss,
 	    $get: $get

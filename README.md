@@ -19,7 +19,7 @@ npm i angular-memory-stats --save
 ```
 # Linux
 google-chrome --enable-precise-memory-info --enable-memory-info
- 
+
 #MacOS
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --enable-precise-memory-info --enable-memory-info
 ```
@@ -40,13 +40,23 @@ angular.module('yourModule', [
 <angular-memory-stats></angular-memory-stats>
 ```
 
-### Disable
+### Config
 
 angular-memory-stats is enabled by default, if you wish to disable it use the ```angularMemoryStatsProvider``` Provider
 
 ```
 angular.module('yourModule').config(function(angularMemoryStatsProvider){
-    angularMemoryStatsProvider.enable(false)
+    // Boolean
+    angularMemoryStatsProvider.enable(true);
+
+    // topLeft, topRight, bottomLeft, bottomRight (default)
+    angularMemoryStatsProvider.setCorner('bottomRight');
+
+    // Customize the element (By default zIndex = 1 and position = fixed)
+    angularMemoryStatsProvider.setCss({
+      right: '50px',
+      zIndex: 999999
+    });
 });
 ```
 
